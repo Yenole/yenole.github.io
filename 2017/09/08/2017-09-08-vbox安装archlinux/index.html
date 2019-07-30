@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux,vbox," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="下载archlinx镜像 中科大镜像 阿里云镜像  vbox新建虚拟机 类型【Linix】 版本【Arch Linux（64bit）】 启动选中下载的archlinux镜像 选择【Boot Arch Linux (x86_64)】  安装步骤查看磁盘信息和新建分区挂在磁盘到 mount /dev/sdxa /mnt  修改源 源配置文件:nano /etc/pacman.d/mirrorlist">
+<meta name="keywords" content="linux,vbox">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vbox安装archlinux">
+<meta property="og:url" content="https://yenole.com/2017/09/08/2017-09-08-vbox安装archlinux/index.html">
+<meta property="og:site_name" content="夜の乐">
+<meta property="og:description" content="下载archlinx镜像 中科大镜像 阿里云镜像  vbox新建虚拟机 类型【Linix】 版本【Arch Linux（64bit）】 启动选中下载的archlinux镜像 选择【Boot Arch Linux (x86_64)】  安装步骤查看磁盘信息和新建分区挂在磁盘到 mount /dev/sdxa /mnt  修改源 源配置文件:nano /etc/pacman.d/mirrorlist">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-30T09:06:33.790Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vbox安装archlinux">
+<meta name="twitter:description" content="下载archlinx镜像 中科大镜像 阿里云镜像  vbox新建虚拟机 类型【Linix】 版本【Arch Linux（64bit）】 启动选中下载的archlinux镜像 选择【Boot Arch Linux (x86_64)】  安装步骤查看磁盘信息和新建分区挂在磁盘到 mount /dev/sdxa /mnt  修改源 源配置文件:nano /etc/pacman.d/mirrorlist">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yenole.com/2017/09/08/2017-09-08-vbox安装archlinux/"/>
+
+
+
+
+
+  <title>vbox安装archlinux | 夜の乐</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夜の乐</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">无所事事 悠哉自在</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yenole.com/2017/09/08/2017-09-08-vbox安装archlinux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="夜の乐">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6938587?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夜の乐">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vbox安装archlinux</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-08T10:00:45+00:00">
+                2017-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="下载archlinx镜像"><a href="#下载archlinx镜像" class="headerlink" title="下载archlinx镜像"></a>下载archlinx镜像</h2><ul>
+<li><a href="http://mirrors.ustc.edu.cn/archlinux/iso/" target="_blank" rel="noopener">中科大镜像</a></li>
+<li><a href="http://mirrors.aliyun.com/archlinux/iso/" target="_blank" rel="noopener">阿里云镜像</a></li>
+</ul>
+<h2 id="vbox新建虚拟机"><a href="#vbox新建虚拟机" class="headerlink" title="vbox新建虚拟机"></a>vbox新建虚拟机</h2><ul>
+<li>类型【Linix】</li>
+<li>版本【Arch Linux（64bit）】</li>
+<li>启动选中下载的archlinux镜像</li>
+<li>选择【Boot Arch Linux (x86_64)】</li>
+</ul>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="查看磁盘信息和新建分区"><a href="#查看磁盘信息和新建分区" class="headerlink" title="查看磁盘信息和新建分区"></a>查看磁盘信息和新建分区</h3><h3 id="挂在磁盘到"><a href="#挂在磁盘到" class="headerlink" title="挂在磁盘到"></a>挂在磁盘到</h3><ul>
+<li>mount /dev/sdxa /mnt</li>
+</ul>
+<h3 id="修改源"><a href="#修改源" class="headerlink" title="修改源"></a>修改源</h3><ul>
+<li>源配置文件:nano /etc/pacman.d/mirrorlist</li>
+<li>中科大镜像:<a href="http://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch" target="_blank" rel="noopener">http://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch</a></li>
+<li>阿里云镜像:<a href="http://mirrors.aliyun.com/archlinux/$repo/os/$arch" target="_blank" rel="noopener">http://mirrors.aliyun.com/archlinux/$repo/os/$arch</a></li>
+</ul>
+<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
+<li>pacstrap /mnt/ base base-devel net-tools</li>
+</ul>
+<h3 id="配置fstab"><a href="#配置fstab" class="headerlink" title="配置fstab"></a>配置fstab</h3><ul>
+<li>genfstab -U /mnt/ &gt;&gt; /mnt/etc/fstab</li>
+</ul>
+<h3 id="配置系统"><a href="#配置系统" class="headerlink" title="配置系统"></a>配置系统</h3><ul>
+<li>arch-chroot /mnt</li>
+</ul>
+<h3 id="生成locale"><a href="#生成locale" class="headerlink" title="生成locale"></a>生成locale</h3><ul>
+<li>nano /etc/locale.gen</li>
+<li>locale-gen</li>
+<li>echo ‘LANG=zh_CN.UTF-8’&gt;&gt;/etc/locale.conf // 设置默认</li>
+</ul>
+<h3 id="设置时区"><a href="#设置时区" class="headerlink" title="设置时区"></a>设置时区</h3><ul>
+<li>ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</li>
+</ul>
+<h3 id="主机名"><a href="#主机名" class="headerlink" title="主机名"></a>主机名</h3><ul>
+<li>echo arch &gt;&gt; /etc/hostname</li>
+</ul>
+<h3 id="有线链接"><a href="#有线链接" class="headerlink" title="有线链接"></a>有线链接</h3><ul>
+<li>systemctl start dhcpcd</li>
+</ul>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><ul>
+<li>mkinitcpio -p linux</li>
+</ul>
+<h3 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h3><ul>
+<li>passwd</li>
+</ul>
+<h3 id="安装grub"><a href="#安装grub" class="headerlink" title="安装grub"></a>安装grub</h3><ul>
+<li>pacman -S grub-bios</li>
+<li>grub-install /dev/sdx</li>
+<li>grub-mkconfig -o /boot/grub/grub.cfg</li>
+</ul>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><h3 id="退出配置系统"><a href="#退出配置系统" class="headerlink" title="退出配置系统"></a>退出配置系统</h3><ul>
+<li>exit</li>
+</ul>
+<h3 id="卸载挂在盘"><a href="#卸载挂在盘" class="headerlink" title="卸载挂在盘"></a>卸载挂在盘</h3><ul>
+<li>umount -R /mnt</li>
+</ul>
+<h3 id="重新系统"><a href="#重新系统" class="headerlink" title="重新系统"></a>重新系统</h3><ul>
+<li>reboot</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    夜の乐
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yenole.com/2017/09/08/2017-09-08-vbox安装archlinux/" title="vbox安装archlinux">https://yenole.com/2017/09/08/2017-09-08-vbox安装archlinux/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/vbox/" rel="tag"># vbox</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/30/2017-08-30-Window10-Shift-右键打开命令提示符/" rel="next" title="Window10 Shift+右键打开命令提示符">
+                <i class="fa fa-chevron-left"></i> Window10 Shift+右键打开命令提示符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/27/2017-09-27-npm淘宝源/" rel="prev" title="npm淘宝源">
+                npm淘宝源 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars3.githubusercontent.com/u/6938587?s=460&v=4"
+               alt="夜の乐" />
+          <p class="site-author-name" itemprop="name">夜の乐</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yenole" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://gitee.com/yenole" target="_blank" title="Gitee">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2644349401" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载archlinx镜像"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4E0B;&#x8F7D;archlinx&#x955C;&#x50CF;" class="headerlink" title="&#x4E0B;&#x8F7D;archlinx&#x955C;&#x50CF;"></a>&#x4E0B;&#x8F7D;archlinx&#x955C;&#x50CF;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vbox新建虚拟机"><span class="nav-number">2.</span> <span class="nav-text"><a href="#vbox&#x65B0;&#x5EFA;&#x865A;&#x62DF;&#x673A;" class="headerlink" title="vbox&#x65B0;&#x5EFA;&#x865A;&#x62DF;&#x673A;"></a>vbox&#x65B0;&#x5EFA;&#x865A;&#x62DF;&#x673A;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装步骤"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;&#x6B65;&#x9AA4;" class="headerlink" title="&#x5B89;&#x88C5;&#x6B65;&#x9AA4;"></a>&#x5B89;&#x88C5;&#x6B65;&#x9AA4;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看磁盘信息和新建分区"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x67E5;&#x770B;&#x78C1;&#x76D8;&#x4FE1;&#x606F;&#x548C;&#x65B0;&#x5EFA;&#x5206;&#x533A;" class="headerlink" title="&#x67E5;&#x770B;&#x78C1;&#x76D8;&#x4FE1;&#x606F;&#x548C;&#x65B0;&#x5EFA;&#x5206;&#x533A;"></a>&#x67E5;&#x770B;&#x78C1;&#x76D8;&#x4FE1;&#x606F;&#x548C;&#x65B0;&#x5EFA;&#x5206;&#x533A;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#挂在磁盘到"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x6302;&#x5728;&#x78C1;&#x76D8;&#x5230;" class="headerlink" title="&#x6302;&#x5728;&#x78C1;&#x76D8;&#x5230;"></a>&#x6302;&#x5728;&#x78C1;&#x76D8;&#x5230;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改源"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#&#x4FEE;&#x6539;&#x6E90;" class="headerlink" title="&#x4FEE;&#x6539;&#x6E90;"></a>&#x4FEE;&#x6539;&#x6E90;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装系统"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;" class="headerlink" title="&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;"></a>&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置fstab"><span class="nav-number">3.5.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;fstab" class="headerlink" title="&#x914D;&#x7F6E;fstab"></a>&#x914D;&#x7F6E;fstab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置系统"><span class="nav-number">3.6.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;&#x7CFB;&#x7EDF;" class="headerlink" title="&#x914D;&#x7F6E;&#x7CFB;&#x7EDF;"></a>&#x914D;&#x7F6E;&#x7CFB;&#x7EDF;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成locale"><span class="nav-number">3.7.</span> <span class="nav-text"><a href="#&#x751F;&#x6210;locale" class="headerlink" title="&#x751F;&#x6210;locale"></a>&#x751F;&#x6210;locale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置时区"><span class="nav-number">3.8.</span> <span class="nav-text"><a href="#&#x8BBE;&#x7F6E;&#x65F6;&#x533A;" class="headerlink" title="&#x8BBE;&#x7F6E;&#x65F6;&#x533A;"></a>&#x8BBE;&#x7F6E;&#x65F6;&#x533A;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主机名"><span class="nav-number">3.9.</span> <span class="nav-text"><a href="#&#x4E3B;&#x673A;&#x540D;" class="headerlink" title="&#x4E3B;&#x673A;&#x540D;"></a>&#x4E3B;&#x673A;&#x540D;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有线链接"><span class="nav-number">3.10.</span> <span class="nav-text"><a href="#&#x6709;&#x7EBF;&#x94FE;&#x63A5;" class="headerlink" title="&#x6709;&#x7EBF;&#x94FE;&#x63A5;"></a>&#x6709;&#x7EBF;&#x94FE;&#x63A5;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">3.11.</span> <span class="nav-text"><a href="#&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;"></a>&#x521D;&#x59CB;&#x5316;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改密码"><span class="nav-number">3.12.</span> <span class="nav-text"><a href="#&#x4FEE;&#x6539;&#x5BC6;&#x7801;" class="headerlink" title="&#x4FEE;&#x6539;&#x5BC6;&#x7801;"></a>&#x4FEE;&#x6539;&#x5BC6;&#x7801;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装grub"><span class="nav-number">3.13.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;grub" class="headerlink" title="&#x5B89;&#x88C5;grub"></a>&#x5B89;&#x88C5;grub</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结尾"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x7ED3;&#x5C3E;" class="headerlink" title="&#x7ED3;&#x5C3E;"></a>&#x7ED3;&#x5C3E;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#退出配置系统"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#&#x9000;&#x51FA;&#x914D;&#x7F6E;&#x7CFB;&#x7EDF;" class="headerlink" title="&#x9000;&#x51FA;&#x914D;&#x7F6E;&#x7CFB;&#x7EDF;"></a>&#x9000;&#x51FA;&#x914D;&#x7F6E;&#x7CFB;&#x7EDF;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载挂在盘"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#&#x5378;&#x8F7D;&#x6302;&#x5728;&#x76D8;" class="headerlink" title="&#x5378;&#x8F7D;&#x6302;&#x5728;&#x76D8;"></a>&#x5378;&#x8F7D;&#x6302;&#x5728;&#x76D8;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新系统"><span class="nav-number">4.3.</span> <span class="nav-text"><a href="#&#x91CD;&#x65B0;&#x7CFB;&#x7EDF;" class="headerlink" title="&#x91CD;&#x65B0;&#x7CFB;&#x7EDF;"></a>&#x91CD;&#x65B0;&#x7CFB;&#x7EDF;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">夜の乐</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://yenole.com/2017/09/08/2017-09-08-vbox安装archlinux/';
+          this.page.identifier = '2017/09/08/2017-09-08-vbox安装archlinux/';
+          this.page.title = 'vbox安装archlinux';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yenole.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
